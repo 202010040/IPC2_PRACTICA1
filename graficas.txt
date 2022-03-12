@@ -1,0 +1,29 @@
+digraph G {
+        node [shape=record]
+        label="Listado de ordenes actuales: " labelloc=t
+      
+        subgraph cluster3 {
+                label="Orden #1"
+                fontcolor = "darkgreen"
+                aaa [label = "pizza1", color = "darkgreen", fontcolor = "darkgreen"]
+                aab [label = "pizza1", color = "darkgreen", fontcolor = "darkgreen"]
+                struct0 [label="{a | b | c}", color = "darkgreen", fontcolor = "darkgreen"]
+                style = "filled"
+                color = "springgreen"
+        }
+        subgraph cluster1 {
+                label="Orden #2"
+                bba [label = "pizza1"]
+                bbb [label = "pizza1"]
+                struct1 [label="{a | b | c}"]
+        }
+        subgraph cluster2 {
+                label="Orden #3"
+                fontcolor = "brown"
+                cca [label = "pizza1", color = "brown", fontcolor = "brown"]
+                ccb [label = "pizza1", color = "brown", fontcolor = "brown"]
+                struct2 [label="{a | b | c}", color = "brown", fontcolor = "brown"]
+                style = "filled"
+                color = "pink"
+        }
+}
