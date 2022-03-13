@@ -18,7 +18,7 @@ class pizza_t:
         self.calcular_tiempo()
 
     def calcular_total(self): # Calcular total recorriendo y sumando los precios de los ingredientes 
-        if self.ingredientes.vacia():
+        if self.ingredientes.vacia() == True:
             self.precio_total = 0
         else:
             temp_pizza = self.ingredientes.primero
@@ -29,7 +29,7 @@ class pizza_t:
                     break
 
     def calcular_tiempo(self): # Calcular total recorriendo y sumando los precios de los ingredientes 
-        if self.ingredientes.vacia():
+        if self.ingredientes.vacia() == True:
             self.tiempo_total = 0
         else:
             temp_pizza = self.ingredientes.primero
