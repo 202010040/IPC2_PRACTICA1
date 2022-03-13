@@ -58,7 +58,7 @@ orden_pizzas_mas = ("""
         Deseas agregar otra pizza.............?  
         ("s" para Si, cualquier otra tecla para No):  
 """)
-orden_pizzas_mas = ("""
+orden_pizzas_tot = ("""
 =================================================================================
 !!                                                                             !!
 !!                          Ingresa una pizza                                  !!
@@ -98,6 +98,7 @@ from Lista_ordenes import ordenes_list,ingredientes_list,pizza_list
 
 class Main:
     ordenes = ordenes_list()
+    i = 0
     #METODOS A UTILIZAR
     def __init__(self) :
         self.main()
@@ -105,29 +106,41 @@ class Main:
         M = input(menu_principal+ "                                        "+"Ingrese una opcion valida para continuar: ")
         if M =='1':
             print ("1")
-            self.ingresar_orden()
+            self.ingresar_orden(self.ordenes)
         elif M =='2':
             print("Usted ha impreso 2")
         elif M =='3':
-            print("Usted ha impreso 3")
+            self.ordenes.graficar_primero()
         elif M =='4':
             print("Usted ha impreso 4")
         elif M =='0':
-            print("Usted ha impreso 0")
+            print("Adios")
+            exit()
         else:        
             print("                            "+"Por favor, seleccione una opcion valida para continuar")
             self.main() #Vuelve a eecutar el codigo si no hay nada
 
-    def ingresar_orden(self):
+    def ingresar_orden(self, ordenes0): #CREAR NUEVA ORDEN, no se si hacerlo con ordenes0 o solo self.ordenes pero no quiero arriesgarme
+        pizzas = pizza_list()
         nombre_cliente = input(orden_nombre0)
         direccion_cliente = input(orden_direccion0)
         print(orden_pizzas0)
-        self.ingresar_pizzas()
+        self.ingresar_pizzas(pizzas) #INGRESA UN LISTADO DE PIZZAS
+        self.i +=1
+        ordenes0.añadir_primero ("Orden"+str(self.i),nombre_cliente,direccion_cliente,pizzas)
+        print ("Orden agregada con exito")
+        self.ordenes.recorrer()
+        self.main()
         
-    def ingresar_pizzas(self):#ARREGLO DE PIZZAS QUE SE MANDAN A LAS ORDENES
-        pizzas = pizza_list()
+        
+    def ingresar_pizzas(self,pizzas0):#ARREGLO DE PIZZAS QUE SE MANDAN A LAS ORDENES
         lista_ing = self.agregar_ingredientes()
-        lista_ing.recorrer()
+        pizzas0.añadir(lista_ing)
+        listo = input(orden_pizzas_tot + str(pizzas0.ultimo.precio_total) + " Quetzales" +"\n        Y el tiempo total de preparacion sera de :\n        " + str(pizzas0.ultimo.tiempo_total) + " Minutos")
+        mas = input(orden_pizzas_mas)
+        if mas == "s":
+            self.ingresar_pizzas(pizzas0)
+        
 
     def agregar_ingredientes(self): # ARREGLO DE INGREDIENTES QUE SE MANDA A LAS PIZZAS
         ing =  ingredientes_list()
@@ -148,11 +161,37 @@ class Main:
             ing.añadir ("Piña",2,5)
 
         if ing.vacia() == True: #VALIDA QUE POR LO MENOS HAYA UN INGREDIENE
-            print ("Por favor escoja por lo menos un ingrediente....")
-            self.ingresar_pizzas()
+            print ("No puedes pedir una pizza sin ingredientes.......")
+            la2 = self.agregar_ingredientes2(ing) #"CREO OTRO METODO IGUAL YA QUE SI NO SEBUGEA"
+            while la2 == None:
+                print("vacia")
+                la2 = self.agregar_ingredientes2(ing) #"CREO OTRO METODO IGUAL YA QUE SI NO SEBUGEA"
+            return (la2)
         else:
             print ("La pizza se ha ordenado con exito....")
-            ing.recorrer()
             return (ing)
+
+    def agregar_ingredientes2(self,ing): # ARREGLO DE INGREDIENTES QUE SE MANDA A LAS PIZZAS
+        pep = input(pepperoni)
+        if pep == 's':
+            ing.añadir ("Pepperoni",3,10)
+        salch = input(salchicha)
+        if salch == 's':
+            ing.añadir ("Salchicha",4,10)
+        car = input(carne)
+        if car == 's':
+            ing.añadir ("Carne",10,15)
+        que = input(queso)
+        if que == 's':
+            ing.añadir ("Queso",5,35)
+        piña0 = input(piña)
+        if piña0 == 's':
+            ing.añadir ("Piña",2,5)
+            ing.recorrer()
+        while ing.vacia() == True: #VALIDA QUE POR LO MENOS HAYA UN INGREDIENE
+            print ("No puedes pedir una pizza sin ingredientes......")
+            self.agregar_ingredientes2(ing)
+            
+        return (ing)
 
 new = Main()

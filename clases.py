@@ -10,6 +10,7 @@ class ingrediente_t:
 class pizza_t:
     def __init__ (self, ingredientes):
         self.ingredientes = ingredientes
+        self.hora = datetime.now()
         self.precio_total = 0
         self.tiempo_total = 0
         self.siguiente = None
